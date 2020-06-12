@@ -4,16 +4,17 @@ export PATH
 
 #=================================================
 #	Vnet-Tunnel一键安装脚本
-#	       Version: 1.2
-#                仅支持Centos7 x64
+#	Version: 1.2
 #=================================================
 sh_ver="1.2"
+github="gitee.com/yunyiya/Linux-NetSpeed/raw/master"
 
 Green_font_prefix="\033[32m" && hongsewenzi="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
 Info="${Green_font_prefix}[信息]${Font_color_suffix}"
 address="${Green_font_prefix}[管理地址]${Font_color_suffix}"
-SiemensTutorial="重启服务器会导致数据丢失，为了稳定运行请尽可能保证服务器稳定。
+yunyi_end="重启服务器会导致数据丢失，为了稳定运行请尽可能保证服务器稳定。
 执行${Green_font_prefix}vnet${Font_color_suffix}命令会再次启动此脚本"
+yunyiya="www.yunyiya.com" 
 
 #开始菜单
 start_menu(){
@@ -68,7 +69,7 @@ esac
 #安装普通控制端
 check_sys_clinet(){
 	suidaoanquan
-    wget -N --no-check-certificate "https://github.com/siemenstutorials/Vnet_tunnel/raw/master/tunnel.zip" 
+    wget -N --no-check-certificate "https://${yunyiya}/download/linux/tunnel.zip" 
 	unzip tunnel.zip
 	chmod -R +x ./*
     nohup ./client >> /dev/null 2>&1 &
@@ -77,7 +78,7 @@ check_sys_clinet(){
     echo -e "控制端安装完成，请使用浏览器打开网址进行配置"
     echo -e ${address}
 	echo -e ${Green_font_prefix}"http://${SERVER_IP}:8080/resources/add_client.html"${Font_color_suffix}
-    echo -e $SiemensTutorial
+    echo -e $yunyi_end
 }
 
 #安装nat控制端
@@ -86,7 +87,7 @@ check_sys_natclinet(){
     suidaoanquan
 	iptables -t nat -A PREROUTING -p tcp --dport ${portzhuanfa} -j REDIRECT --to-port 8080
 	service iptables save
-    wget -N --no-check-certificate "https://github.com/siemenstutorials/Vnet_tunnel/raw/master/tunnel.zipg" 
+    wget -N --no-check-certificate "https://${yunyiya}/download/linux/tunnel.zip" 
 	unzip tunnel.zip
 	chmod -R +x ./*
     nohup ./client >> /dev/null 2>&1 &
@@ -95,20 +96,20 @@ check_sys_natclinet(){
     echo -e "控制端安装完成，请使用浏览器打开网址进行配置"
 	echo -e ${address}
     echo -e ${Green_font_prefix}"http://${SERVER_IP}:${portzhuanfa}/resources/add_client.html"${Font_color_suffix}
-	echo -e $SiemensTutorial
+	echo -e $yunyi_end
 }
 
 #安装服务端
 install_server(){
 	suidaoanquan
-    wget -N --no-check-certificate "https://github.com/siemenstutorials/Vnet_tunnel/raw/master/tunnel.zip" && unzip tunnel.zip && chmod -R +x ./*
+    wget -N --no-check-certificate "https://${yunyiya}/download/linux/tunnel.zip" && unzip tunnel.zip && chmod -R +x ./*
     nohup ./server >> /dev/null 2>&1 &
     kuaijiemingling
 	clear
 	echo -e "服务端安装完成，请使用浏览器打开网址进行配置"
 	echo -e ${address}
     echo -e ${Green_font_prefix}"http://${SERVER_IP}:8081/resources/add_server.html"${Font_color_suffix}
-	echo -e $SiemensTutorial
+	echo -e $yunyi_end
 }
 
 #重启客户端
